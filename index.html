@@ -5,13 +5,6 @@
     <title>Faceyrself</title>
     <link href='https://fonts.googleapis.com/css?family=Nunito:700' rel='stylesheet' type='text/css'>
     <style>
-body {
-  opacity: 0;
-  transition: opacity 6s ease-in-out;
-  -moz-transition: opacity 6s ease-in-out;
-  -webkit-transition: opacity 6s ease-in-out;
-}
-
 * {
   font-family: 'Nunito', sans-serif;
 }
@@ -19,10 +12,40 @@ body {
 ::-webkit-scrollbar { 
   display: none;
 }
+
+#load {
+  position: fixed;
+  left:50%;
+  top:50%;
+  z-index: -100;
+}
+
+#load > img {
+position: relative;
+top: -104px;
+left: -67px;
+
+  -webkit-animation: wobble 2s infinite; /* Safari 4+ */
+  -moz-animation:    wobble 2s infinite; /* Fx 5+ */
+  -o-animation:      wobble 2s infinite; /* Opera 12+ */
+  animation:         wobble 2s infinite; /* IE 10+, Fx 29+ */
+  animation-timing-function: ease;
+}
+
+@keyframes wobble {
+  0% { transform: rotate(12deg); }
+  50% { transform: rotate(-12deg); }
+  100% { transform: rotate(12deg); }
+}
       
       #collage {
+  opacity: 0;
+  transition: opacity 6s ease-in-out;
+  -moz-transition: opacity 6s ease-in-out;
+  -webkit-transition: opacity 6s ease-in-out;
         height: 100vh;
         background-color: #F9F9F9;
+z-index: 100;
       }
       
       div.container {
@@ -35,7 +58,7 @@ body {
         top: 0px;
         left: 1em;
         background-color: #fff;
-        border-radius: 3px;
+        border-radius: 4px;
         padding: 0 5px;
       }
       
@@ -58,6 +81,7 @@ body {
   </head>
   <body>
     <div id="collage"></div>
+<div id="load"><img src="zuck.png" /></div>
     <script src="preventscroll.js"></script>
     <script src="collage.js"></script>
     <script src="index.js"></script>

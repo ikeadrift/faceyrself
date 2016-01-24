@@ -79,8 +79,8 @@ chrome.runtime.onMessage.addListener(function(msg, sender, respond) {
     setTimeout(function() {
       console.log('starting');
       collage.start('media');
-      collage.speed(12);
-      document.body.style.opacity = 1;
+      collage.speed(17);
+      document.getElementById('collage').style.opacity = 1;
     }, 3000);
   }, 2000);
 });
