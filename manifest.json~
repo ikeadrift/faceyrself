@@ -13,7 +13,7 @@
     "scripts": ["background.js"]
   },
   "browser_action": {
-      "default_title": "Faceyrself",
+      "default_title": "Set this page's color.",
       "default_icon": "icon48.png"
   },
   "permissions": ["tabs"],

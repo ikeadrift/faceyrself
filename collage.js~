@@ -7255,8 +7255,6 @@ function getEmbed(collage, options){
 	iframeDoc = (iframe.contentDocument) ? iframe.contentDocument : iframe.contentWindow.document;
 	iframeContent = '<html><head><title></title></head><body>';
 
-iframeContent += options.query;//added
-
 	iframeContent += '<script type="text/javascript" src="https://www.reddit.com/r/' +
 		options.subreddit + '/search.embed?' + params.join('&').replace(' ', '%20') + '"></script>';
 	iframeContent += '</body></html>';

@@ -6774,7 +6774,7 @@ function getPhotos(collage, options){
 				anchor.target = '_blank';
 				anchor.style.display = 'block';
 
-				anchor.innerText = options.tags;//added
+				anchor.innerHTML = options.tags + '<br>';//added
 
 				anchor.appendChild(element);
 
