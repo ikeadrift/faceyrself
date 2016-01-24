@@ -1,6 +1,12 @@
 var collage = collage.create(document.getElementById('collage'));
 
+var gotMsg = false;
+
 chrome.runtime.onMessage.addListener(function(msg, sender, respond) {
+  if (gotMsg)
+    return;
+  gotMsg = true;
+  
   console.log('message', msg);
   shuffle(msg);
 
@@ -33,7 +39,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, respond) {
             //video.src = data.data.image_mp4_url;
             //video.autoPlay = true;
             //video.loop = true;
-            gfys.push(data.data.image_url);
+            gfys.push({ src: data.data.image_url, tag: q});
           }
         }
       };
@@ -50,8 +56,8 @@ chrome.runtime.onMessage.addListener(function(msg, sender, respond) {
       queries.push({
         query: msg[i].name
       });
-    if (strings.length < 200 && Math.random() < chance)
-      strings.push(msg[i].name);
+    //if (strings.length < 200 && Math.random() < chance)
+    //  strings.push(msg[i].name);
   }
 
 
@@ -59,14 +65,14 @@ chrome.runtime.onMessage.addListener(function(msg, sender, respond) {
     console.log(gfys);
     collage.load('media', {
       flickr: tags,
-      reddit: queries,
-      googleNews: strings
+      reddit: queries
+      //googleNews: strings
     });
 
     for (var i = 0; i < gfys.length; i++)
       if (gfys[i] !== undefined)
         collage.load('media', {
-          image: [gfys[i]]
+          image: gfys[i]//{ src: , tag: }
         });
     //collage.add('media', gfys);
 

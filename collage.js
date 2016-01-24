@@ -6767,15 +6767,19 @@ function getPhotos(collage, options){
 			}
 
 			loadImage(item.url_z || item.url_m).then(function(element){
-				var anchor = document.createElement('a');
-				anchor.href = 'http://www.flickr.com/photos/' + item.pathalias + '/' + item.id + '/';
+				var anchor = document.createElement('div'); //jk
+                anchor.className += ' container';
+				//anchor.href = 'http://www.flickr.com/photos/' + item.pathalias + '/' + item.id + '/';
 				anchor.width = element.width;
 				anchor.height = element.height;
-				anchor.target = '_blank';
+				anchor.target = '_breddlank';
 				anchor.style.display = 'block';
+              
+                var p = document.createElement('p');
+                p.innerText = options.tags;
 
-				anchor.innerHTML = options.tags + '<br>';//added
-
+				//anchor.innerHTML = options.tags + '<br>';//added
+                anchor.appendChild(p);
 				anchor.appendChild(element);
 
 				credits[item.pathalias] = anchor.href;
@@ -6871,7 +6875,7 @@ module.exports = function(collage, query){
 };
 
 var ARTICLE_TEMPLATE = '' +
-'<div class="article-wrapper">' +
+'<div class="article-wrapper container">' +
 	'{{#image}}' +
 		'<a href="{{image.contextUrl}}">' +
 			'<img title="Image by {{image.publisher}}" class="article-image" ' +
@@ -7074,7 +7078,9 @@ var SimpleElement = _dereq_('../element/Simple.js');
 
 var documentFragment = document.createDocumentFragment();
 
-module.exports = function(collage, src){
+  //QWERTY
+  var documentFragment = document.createDocumentFragment();
+function loadImage(src){
 	var	deferred = Q.defer(),
 		img = new Image();
 
@@ -7083,10 +7089,64 @@ module.exports = function(collage, src){
 	img.onload = function(){
 		// This forces FF to set the width/height
 		documentFragment.appendChild(img);
-		deferred.resolve(new SimpleElement(img));
+		deferred.resolve(img);
 	};
 
 	img.onerror = deferred.reject.bind(deferred);
+
+	return deferred.promise;
+}
+module.exports = function(collage, src){
+	var	deferred = Q.defer();//,
+		//img = new Image();
+  //made to shit
+  var ert;
+  loadImage(src.src).then(function(element){
+				var anchor = document.createElement('div'); //jk
+                anchor.className += ' container';
+				//anchor.href = 'http://www.flickr.com/photos/' + item.pathalias + '/' + item.id + '/';
+				anchor.width = element.width;
+				anchor.height = element.height;
+				anchor.target = '_breddlank';
+				anchor.style.display = 'block';
+              
+                var p = document.createElement('p');
+                p.innerText = src.tag.split('+').join(' ');
+
+				//anchor.innerHTML = options.tags + '<br>';//added
+                anchor.appendChild(p);
+				anchor.appendChild(element);
+
+				//credits[item.pathalias] = anchor.href;
+                ert=SimpleElement.create(anchor);
+				//elements.push(SimpleElement.create(anchor));
+				if(ert) deferred.resolve(ert);
+//    deferred.resolve(anchor);
+			}, function(){
+    if(ert) deferred.resolve(ert);
+//				if(--waiting === 0) deferred.resolve(elements);
+			});
+
+	//img.src = src.src;
+
+	/*img.onload = function(){
+		// This forces FF to set the width/height
+      
+		documentFragment.appendChild(img);
+      
+        var e = document.createElement('div');
+      e.className = 'container';
+      var p = document.createElement('p');
+      p.innerText = src.tag;
+      e.appendChild(p);
+      e.appendChild(img);
+      
+      
+		documentFragment.appendChild(e);
+		deferred.resolve(new SimpleElement(e));
+	};
+
+	img.onerror = deferred.reject.bind(deferred);*/
 
 	return deferred.promise;
 };
@@ -7262,6 +7322,9 @@ function getEmbed(collage, options){
 	iframeDoc.open();
 	iframeDoc.write(iframeContent);
 	iframeDoc.close();
+  
+  
+//				elements.push(SimpleElement.create(anchor));
 
 	return Q.when(new IframeElement(element));
 }
@@ -7318,12 +7381,17 @@ function getPhotos(collage, options){
 			credits[item.author] = 'https://www.reddit.com' + item.permalink;
 
 			loadImage(item.url).then(function(element){
-				var anchor = document.createElement('a');
-				anchor.href = 'https://www.reddit.com' + item.permalink;
+				var anchor = document.createElement('div');
+				//anchor.href = 'https://www.reddit.com' + item.permalink;
+              anchor.className += ' container';
 				anchor.width = element.width;
 				anchor.height = element.height;
 				anchor.target = '_blank';
 				anchor.style.display = 'block';
+              
+              var p = document.createElement('p');
+              p.innerText = options.query;
+              anchor.appendChild(p);
 				anchor.appendChild(element);
 
 				elements.push(SimpleElement.create(anchor));
